@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import AddTitan from './components/AddTitan';
+import Titan from './components/Titan';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    titans: [
+      { name: 'Joe', age: '32', job: 'net-worker', id: 1 },
+      { name: 'Joca', age: '28', job: 'developer', id: 2 },
+      { name: 'Jenny', age: '24', job: 'manager', id: 3 },
+    ],
+  };
+  addTitan = (titan) => {
+    titan.id = Math.random();
+    let titans = [...this.state.titans, titan];
+    this.setState({
+      titans: titans,
+    });
+  };
+  deleteTitan = (id) => {
+    let titans = this.state.titans.filter((titan) => {
+      return titan.id !== id;
+    });
+    this.setState({
+      titans: titans,
+    });
+  };
+  render() {
+    return (
+      <div className="App">
+        <h1>Welcome</h1>
+        <Titan titans={this.state.titans} deleteTitan={this.deleteTitan} />
+        <AddTitan addTitan={this.addTitan} />
+      </div>
+    );
+  }
 }
-
 export default App;
