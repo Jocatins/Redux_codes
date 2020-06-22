@@ -1,36 +1,35 @@
 import React, { Component } from 'react';
-import AddTitan from './components/AddTitan';
-import Titan from './components/Titan';
+import Menus from './components/Menus';
+import AddMenu from './components/AddMenu';
 
 class App extends Component {
   state = {
-    titans: [
-      { name: 'Joe', age: '32', job: 'net-worker', id: 1 },
-      { name: 'Joca', age: '28', job: 'developer', id: 2 },
-      { name: 'Jenny', age: '24', job: 'manager', id: 3 },
+    menus: [
+      { id: 1, content: 'do some coding' },
+      { id: 2, content: 'push some weights' },
     ],
   };
-  addTitan = (titan) => {
-    titan.id = Math.random();
-    let titans = [...this.state.titans, titan];
+  deleteMenu = (id) => {
+    const menus = this.state.menus.filter((menu) => {
+      return menu.id !== id;
+    });
     this.setState({
-      titans: titans,
+      menus,
     });
   };
-  deleteTitan = (id) => {
-    let titans = this.state.titans.filter((titan) => {
-      return titan.id !== id;
-    });
+  addMenu = (menu) => {
+    menu.id = Math.random();
+    let menus = [...this.state.menus, menu];
     this.setState({
-      titans: titans,
+      menus,
     });
   };
   render() {
     return (
-      <div className="App">
-        <h1>Welcome</h1>
-        <Titan titans={this.state.titans} deleteTitan={this.deleteTitan} />
-        <AddTitan addTitan={this.addTitan} />
+      <div className="menu-app container">
+        <h1 className="center green-text">Menu</h1>
+        <Menus menus={this.state.menus} deleteMenu={this.deleteMenu} />
+        <AddMenu addMenu={this.addMenu} />
       </div>
     );
   }
